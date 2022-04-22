@@ -1,0 +1,188 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type NewyorksampleAddress {
+  city                   String
+  country                String
+  county                 String?
+  county_needed_for_uniq Boolean
+  is_approximate         Boolean?
+  lat                    Float
+  line                   String
+  lon                    Float
+  neighborhood_name      String?
+  neighborhoods          NewyorksampleAddressNeighborhoods[]
+  postal_code            String
+  state                  String
+  state_code             String
+  time_zone              String
+}
+
+type NewyorksampleAddressNeighborhoods {
+  id    String
+  level String
+  name  String
+}
+
+type NewyorksampleAgents {
+  primary Boolean
+}
+
+type NewyorksampleBuildingSize {
+  units String
+}
+
+type NewyorksampleClientDisplayFlags {
+  allows_cats                    Boolean?
+  allows_dogs                    Boolean?
+  allows_dogs_large              Boolean?
+  allows_dogs_small              Boolean?
+  has_matterport                 Boolean?
+  has_specials                   Boolean
+  is_apartmentlist               Boolean
+  is_co_star                     Boolean
+  is_mls_rental                  Boolean
+  is_rental_community            Boolean
+  is_rental_unit                 Boolean
+  is_showcase                    Boolean
+  lead_form_phone_required       Boolean
+  presentation_status            String
+  price_change                   Int
+  price_reduced                  Boolean
+  suppress_map_pin               Boolean
+  suppress_phone_call_lead_event Boolean
+}
+
+type NewyorksampleCommunity {
+  /// Multiple data types found: Float: 5.5%, Int: 94.5% out of 200 sampled entries
+  baths_max      Json
+  /// Multiple data types found: Float: 0.5%, Int: 99.5% out of 200 sampled entries
+  baths_min      Json
+  beds_max       Int
+  beds_min       Int
+  contact_number String?
+  id             Int
+  name           String
+  price_max      Int?
+  price_min      Int?
+  source_id      String
+  sqft_hint      String?
+  sqft_max       Int?
+  sqft_min       Int?
+}
+
+type NewyorksampleLeadForms {
+  form            NewyorksampleLeadFormsForm
+  show_agent      Boolean
+  show_broker     Boolean
+  show_management Boolean
+  show_provider   Boolean
+}
+
+type NewyorksampleLeadFormsForm {
+  email        NewyorksampleLeadFormsFormEmail
+  message      NewyorksampleLeadFormsFormMessage
+  move_in_date NewyorksampleLeadFormsFormMoveInDate
+  name         NewyorksampleLeadFormsFormName
+  phone        NewyorksampleLeadFormsFormPhone
+  show         Boolean
+}
+
+type NewyorksampleLeadFormsFormEmail {
+  minimum_character_count Int
+  required                Boolean
+}
+
+type NewyorksampleLeadFormsFormMessage {
+  minimum_character_count Int
+  required                Boolean
+}
+
+type NewyorksampleLeadFormsFormMoveInDate {
+  default_date            String
+  maximum_days_from_today Int
+  minimum_days_from_today Int
+  required                Boolean
+}
+
+type NewyorksampleLeadFormsFormName {
+  minimum_character_count Int
+  required                Boolean
+}
+
+type NewyorksampleLeadFormsFormPhone {
+  maximum_character_count Int
+  minimum_character_count Int
+  required                Boolean
+}
+
+type NewyorksampleLotSize {
+  size  Int
+  units String
+}
+
+type NewyorksamplePhotos {
+  href String
+}
+
+model Comment {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  comment String
+  postId  String @db.ObjectId
+  post    Post   @relation(fields: [postId], references: [id])
+}
+
+model Post {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  authorId String    @db.ObjectId
+  body     String
+  slug     String
+  title    String
+  comments Comment[]
+  author   User      @relation(fields: [authorId], references: [id])
+
+}
+
+model User {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  email String  @unique
+  name  String?
+  Post  Post[]
+}
+
+model newyorksample {
+  id                   String                          @id @map("_id")
+  address              NewyorksampleAddress
+  agents               NewyorksampleAgents[]
+  beds                 Int
+  building_size        NewyorksampleBuildingSize
+  client_display_flags NewyorksampleClientDisplayFlags
+  community            NewyorksampleCommunity
+  coordinates          Float[]
+  data_source_name     String
+  last_update          String
+  lead_forms           NewyorksampleLeadForms
+  list_date            String
+  list_tracking        String
+  listing_id           String
+  listing_status       String
+  lot_size             NewyorksampleLotSize
+  page_no              Int
+  photo_count          Int
+  photos               NewyorksamplePhotos[]
+  products             String[]
+  prop_status          String
+  prop_type            String
+  property_id          String
+  rank                 Int
+  rdc_app_url          String
+  rdc_web_url          String
+  source               String
+  year_built           Int?
+}
