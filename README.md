@@ -2,12 +2,19 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+Rename the `.env.sample` file to `.env`
+Add your db url string for the db environmental variable. Example:
+
+```js
+DATABASE_URL = "mongodb://localhost:27017";
+```
+
+Run the development server:
 
 ```bash
+npm install
+
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
