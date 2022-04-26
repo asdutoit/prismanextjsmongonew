@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
+import Image from "next/image";
 // import "../styles/arrows.module.css";
 
 const images = [
@@ -35,7 +36,16 @@ const Carousel = ({ data }) => {
           <div className="keen-slider__slide number-slide6">6</div> */}
           {images.map((src, idx) => (
             <div key={idx} className="keen-slider__slide carousel_pics">
-              <img src={src ? src : ""} />
+              {/* <img src={src ? src : ""} /> */}
+              <Image
+                src={src}
+                height={500}
+                width={800}
+                layout="responsive"
+                alt="cover image"
+                placeholder="blur"
+                blurDataURL={src}
+              />
             </div>
           ))}
         </div>

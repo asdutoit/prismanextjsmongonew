@@ -1,15 +1,20 @@
 import Head from "next/head";
-import Image from "next/image";
+// import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { PrismaClient } from "@prisma/client";
-import Carousel from "../components/KeenSliderCarousel/Carousel";
-import { EmblaCarousel } from "../components/EmblaCarousel/EmblaCarousel";
+// import Carousel from "../components/KeenSliderCarousel/Carousel";
+// import { EmblaCarousel } from "../components/EmblaCarousel/EmblaCarousel";
 import SplideCarousel from "../components/SplideCarousel/SplideCarousel";
 
 export default function Home({ posts, properties }) {
-  console.log("PROPS", properties);
   return (
     <>
+      <Head>
+        <title>My Page Title</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta property="og:title" content="My Page Title" key="title" />
+        <meta name="description" content="Put your description here." />
+      </Head>
       <div className={styles.container}>
         <ul>
           {posts.map((post) => (

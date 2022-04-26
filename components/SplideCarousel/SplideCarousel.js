@@ -23,10 +23,9 @@ export default function SplideCarousel() {
           {/* <img data-splide-lazy={src} alt={idx} /> */}
           <Image
             src={src}
-            height={500}
-            width={800}
+            height={188}
+            width={300}
             layout="responsive"
-            className="h-full "
             alt="cover image"
             placeholder="blur"
             blurDataURL={src}
